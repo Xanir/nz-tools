@@ -1,0 +1,29 @@
+{
+	"name": "nz-tools",
+	"description": "Enzey Tools",
+	"version": "0.1.0",
+	"homepage": "https://github.com/EnzeyNet/nz-tools",
+	"bugs": "https://github.com/EnzeyNet/nz-tools/issues",
+	"author": {
+		"name": "Joseph Aspelund",
+		"email": "enzey@enzey.net",
+		"url": "https://github.com/Xanir"
+	},
+	"scripts": {
+		"build": "webpack"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EnzeyNet/nz-tools.git"
+	},
+	"devDependencies": {
+		"webpack": "2.5.1",
+		"karma": "0.12.x",
+		"karma-jasmine": "0.3.x",
+		"karma-chrome-launcher": "0.1.x",
+		"karma-coverage": "0.2.x",
+		"karma-junit-reporter": "0.2.x",
+		"karma-ng-html2js-preprocessor": "0.1.x",
+		"jasmine-core": "2.2.x"
+	}
+}
