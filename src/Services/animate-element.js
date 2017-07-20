@@ -30,7 +30,6 @@ var getLongestTime = function(timesStr) {
     var maxTime = 0;
     times.forEach(function(timeStr) {
         var time = convertToMS(timeStr);
-        console.log(time)
         if (time && !isNaN(time) && time > maxTime) {
             maxTime = time;
         }

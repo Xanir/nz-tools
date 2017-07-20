@@ -1,0 +1,50 @@
+
+.myAni {
+    width: 100%;
+}
+
+
+.myAni.enter-ani.animate-active {
+    width: 100%;
+    transition: width 1.6s ease;
+}
+
+inspector-stylesheet:7
+.myAni.enter-ani {
+    width: 0%;
+    overflow: hidden;
+}
+
+
+.myAni.exit-ani.animate-active {
+    transition: width 1.6s ease;
+    width: 0%;
+}
+
+
+.bounce-in {
+  animation-name: bounceIn;
+  animation-duration: 450ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes bounceIn {
+  0%{
+    opacity: 0;
+    transform: scale(0.3) translate3d(0,0,0);
+  }
+  50%{
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80%{
+    opacity: 1;
+    transform: scale(0.89);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1) translate3d(0,0,0);
+  }
+}
