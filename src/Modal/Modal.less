@@ -1,0 +1,38 @@
+.lightboxContainer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 10vh 10vw;
+
+    &:before {
+      	content: '';
+      	display: inline-block;
+      	height: 100%;
+      	vertical-align: middle;
+      	margin-right: -0.25em;
+    }
+
+  	&:last-of-type {
+        background: rgba(0,0,0,0.5);
+  	}
+
+	.lightbox {
+  		position: relative;
+  		display: inline-flex;
+  		vertical-align: middle;
+  		text-align: initial;
+
+  		margin: 0;
+  		padding: 0;
+  		flex-direction: column;
+
+  		> * {
+  			   max-height: inherit;
+  		}
+   }
+}
