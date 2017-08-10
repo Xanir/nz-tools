@@ -8,4 +8,4 @@ module.exports = getBoxData = function(node) {
 		boxData.marginBottom = parseInt(computedStyles.marginBottom);
 
 		return boxData;
-},
+};
