@@ -1,5 +1,5 @@
 
-var CharMap = require('./../charMap');
+var CharMap = require('./../CharTree');
 var proxyBind = require('./proxyRequest');
 
 const ProxyConfig = function(redirectMap) {
@@ -21,20 +21,26 @@ const ProxyConfig = function(redirectMap) {
     };
 
     service.attemptProxy = function(req, res) {
-        var closestMatch = proxyByPath.findClosestAction(req.url);
-        if (closestMatch) {
-            var redirectBasePath = closestMatch.getFullPath();
+        try {
+            var closestMatch = proxyByPath.findClosestNodeWithActions(req.url);
 
-            var redirectUrl = closestMatch.getActions()[0];
+            if (closestMatch) {
+                res.setHeader('proxy-status', 'match-found')
+                var redirectBasePath = closestMatch.getFullPath();
 
-            req.url = req.url.slice(redirectBasePath.length);
-            req.url = req.url ? req.url : '/';
-            proxyBind(redirectUrl, req, res);
+                var redirectUrl = closestMatch.getActions()[0];
 
-            return true;
-        } else {
-            return false;
+                req.url = req.url.slice(redirectBasePath.length);
+                req.url = req.url ? req.url : '/';
+                proxyBind(redirectUrl, req, res);
+
+                res.setHeader('proxy-status', 'connected')
+                return true;
+            }
+        } catch (e) {
+            console.error(e)
         }
+        return false;
     }
 
 }

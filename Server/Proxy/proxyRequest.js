@@ -4,15 +4,15 @@ const HTTPS = require('https');
 const HTTP = require('http');
 
 const getUrlOptions = function(url) {
-  	var httpParams = URL.parse(url);
-  	delete httpParams.host;
-  	delete httpParams.href;
-  	delete httpParams.pathname;
-  	for (key in httpParams) {
-  		  if (!httpParams[key]) {delete httpParams[key]}
-  	}
+    var httpParams = URL.parse(url);
+    delete httpParams.host;
+    delete httpParams.href;
+    delete httpParams.path;
+    for (key in httpParams) {
+        if (!httpParams[key]) {delete httpParams[key]}
+    }
 
-  	return httpParams;
+    return httpParams;
 }
 
 const buildRediredUrlOptions = function(url, request) {
@@ -26,12 +26,13 @@ const buildRediredUrlOptions = function(url, request) {
     // Remove tailing slash
     urlPathPrefix = urlPathPrefix.replace(/\/$/, '');
 
-    var urlPath = requestParams.path || '';
+    var urlPath = requestParams.pathname || '';
     // Remove prefixed slash
     urlPath = urlPath.replace(/^\//, '');
 
-    requestParams.path = urlPathPrefix + '/' + urlPath;
+    requestParams.pathname = urlPathPrefix + '/' + urlPath;
 
+    requestParams = URL.parse(URL.format(requestParams));
     requestParams.method = request.method;
     requestParams.headers = request.headers;
 
@@ -42,18 +43,31 @@ module.exports = function(url, request, response) {
 		request.pause();
 
     var redirectUrlOptions = buildRediredUrlOptions(url, request);
-    redirectUrlOptions.pathname = redirectUrlOptions.path;
+
+    // Override host for SSL cert validation
+    redirectUrlOptions.headers.host = redirectUrlOptions.hostname
+
     response.setHeader('proxy-url', URL.format(redirectUrlOptions));
 
-		var pRequest = HTTP.request(redirectUrlOptions, (pResponse) => {
-			   pResponse.pipe(response)
-		});
+    var r = redirectUrlOptions.protocol === 'https:' ? HTTPS : HTTP
+	var pRequest = r.request(redirectUrlOptions, (pResponse) => {
+        response.setHeader('proxy-status', 'binding connections')
+        pResponse.pause();
+        Object.keys(pResponse.headers).forEach(h => {
+            response.setHeader(h, pResponse.headers[h]);
+        })
+        pResponse.pipe(response)
+        response.statusCode = pResponse.statusCode;
+        response.setHeader('proxy-status', 'recieving data')
+        pResponse.resume();
+	});
 
-		request.pipe(pRequest);
-		request.resume()
+	request.pipe(pRequest);
+    response.setHeader('proxy-status', 'sending data')
+	request.resume();
 
-		pRequest.on('error', () => {
-      console.log('ERROR')
+	pRequest.on('error', (err) => {
+        response.setHeader('proxy-error', err)
         response.statusCode = 500;
         response.end();
     })
