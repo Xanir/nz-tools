@@ -1,5 +1,5 @@
 
-var CharMap = require('./../CharTree');
+var CharMap = require('./../../CharTree');
 var proxyBind = require('./proxyRequest');
 
 const ProxyConfig = function(redirectMap) {
