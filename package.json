@@ -1,21 +1,25 @@
 {
-	"name": "nz-tools",
-	"description": "Enzey Tools",
-	"version": "0.1.0",
-	"homepage": "https://github.com/EnzeyNet/nz-tools",
-	"bugs": "https://github.com/EnzeyNet/nz-tools/issues",
-	"author": {
-		"name": "Joseph Aspelund",
-		"email": "enzey@enzey.net",
-		"url": "https://github.com/Xanir"
-	},
-	"scripts": {
-		"build": "webpack"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/EnzeyNet/nz-tools.git"
-	},
-	"devDependencies": {
-	}
+  "name": "nz-tools",
+  "description": "Enzey Tools",
+  "version": "0.1.0",
+  "type": "module",
+  "homepage": "https://github.com/EnzeyNet/nz-tools",
+  "bugs": "https://github.com/EnzeyNet/nz-tools/issues",
+  "author": {
+    "name": "Joseph Aspelund",
+    "email": "enzey@enzey.net",
+    "url": "https://github.com/Xanir"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EnzeyNet/nz-tools.git"
+  },
+  "devDependencies": {
+    "jest": "26.6.3"
+  },
+  "dependencies": {}
 }
