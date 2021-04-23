@@ -1,5 +1,6 @@
+import ImmutableSet from './ImmutableSet'
 
-class OneToManyMap {
+class MapOneToMany {
     #map = new Map()
 
     constructor() {
@@ -13,6 +14,10 @@ class OneToManyMap {
         return this.#map.has(key);
     }
 
+    get size() {
+        return this.#map.size
+    }
+
     add(key, value) {
         let values = this.#map.get(key);
         if (values === null || values === undefined) {
@@ -24,33 +29,28 @@ class OneToManyMap {
 
     get(key) {
         let values = this.#map.get(key);
-        if (values) {
-            // clone map
-            values = new Set(values);
-        } else {
-          values = new Set(values);
-        }
+        values = new ImmutableSet(values);
+        values.seal()
 
         return values;
     }
 
     remove(key, value) {
+        let status = null
         if (value === null || value === undefined) {
             // remove all values for key
-            return this.#map.delete(key);
+            status = this.#map.delete(key);
         } else {
             let values = this.#map.get(key);
-            return values.delete(value);
+            status = values.delete(value);
             if (values.size === 0) {
-                return this.#map.delete(key);
+                status = this.#map.delete(key);
             }
         }
-    }
 
-    get size() {
-        return this.#map.size
+        return status
     }
 
 }
 
-export default OneToManyMap;
+export default MapOneToMany;

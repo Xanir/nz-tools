@@ -1,4 +1,7 @@
+import MapOneToMany from './OneToManyMap.js'
+import MapManyToMany from './OneToManyMap.js'
 
-import * as CLASS from './OneToManyMap.js'
-
-export default CLASS;
+export default {
+    MapOneToMany,
+    MapManyToMany,
+};
