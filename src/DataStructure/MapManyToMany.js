@@ -1,8 +1,8 @@
-import OneToManyMap from './OneToManyMap'
+import MapOneToMany from './MapOneToMany'
 
 class MapManyToMany {
-    #mapRightToLefts = new OneToManyMap()
-    #mapLeftToRights = new OneToManyMap()
+    #mapRightToLefts = new MapOneToMany()
+    #mapLeftToRights = new MapOneToMany()
 
     #getFromMap(map, key) {
 
@@ -21,11 +21,13 @@ class MapManyToMany {
 
         const nameLinkLeftToRight = `link${typeOfLeftSide}To${typeOfRightSide}`
         this[nameLinkLeftToRight] = (leftSide, rightSide) => {
-            return this.#mapRightToLefts.add(rightSide, leftSide)
+            this.#mapLeftToRights.add(leftSide, rightSide)
+            this.#mapRightToLefts.add(rightSide, leftSide)
         }
         const nameLinkRightToLeft = `link${typeOfRightSide}To${typeOfLeftSide}`
         this[nameLinkRightToLeft] = (rightSide, leftSide) => {
-            return this.#mapLeftToRights.add(leftSide, rightSide)
+            this.#mapLeftToRights.add(leftSide, rightSide)
+            this.#mapRightToLefts.add(rightSide, leftSide)
         }
 
     }
