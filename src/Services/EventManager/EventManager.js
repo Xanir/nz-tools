@@ -89,4 +89,4 @@ EventManager.prototype.emit = function(name) {
     }
 };
 
-module.exports = EventManager;
+export default EventManager;

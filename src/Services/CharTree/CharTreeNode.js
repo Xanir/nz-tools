@@ -77,4 +77,4 @@ CharacterTreeNode.prototype.removeAction = function(action) {
     return false;
 };
 
-module.exports = CharacterTreeNode;
+export default CharacterTreeNode;
