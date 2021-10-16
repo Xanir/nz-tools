@@ -1,40 +1,43 @@
 
 module.exports = registerClickAwayAction = function(clickAwayAction) {
-	var getChildElems = function(elem) {
+	var anchorElements = [];
+	for (var i = 1; i < arguments.length; i++) {
+		anchorElements.push(arguments[i]);
+	}
+
+	const populateChildren = function(elem, childElems) {
 		if (!elem instanceof HTMLElement) {throw 'must be an HTMLElement';}
 
-		var childElems = [];
 		if (elem.children) {
 			var children = elem.children;
+			for (const )
 			for (var i=0; i < children.length; i++) {
+				const children = getChildElems(children[i])
 				getChildElems(children[i]).forEach(function(childElem) {
-					childElems.push(childElem);
+					childElems.add(childElem);
 				});
 			}
 		}
-		childElems.push(elem);
+		childElems.add(elem);
 
 		return childElems;
 	};
 
-	var parentElems = [];
-	for (var i = 1; i < arguments.length; i++) {
-		parentElems.push(arguments[i]);
-	}
 	var wrappedClickAwayAction = null;
 	wrappedClickAwayAction  = function(event) {
-		var allElements = [];
-		parentElems.forEach(function(parentElem) {
-			getChildElems(parentElem).forEach(function (elem) {
-				allElements.push(elem);
-			});
-		});
-		if (allElements.indexOf(event.target) === -1) {
-			document.removeEventListener('click', wrappedClickAwayAction);
-			clickAwayAction(event);
+		for (const elem of anchorElements) {
+			const anchorParentElements = new Set()
+			populateChildren(elem, anchorParentElements)
+			if (anchorParentElements.has(event.target)) {
+				document.removeEventListener('click', wrappedClickAwayAction);
+				clickAwayAction(event);
+				break;
+			}
 		}
 	};
 	setTimeout(function() {
 		document.addEventListener('click', wrappedClickAwayAction);
 	});
 };
+
+export default registerClickAwayAction
