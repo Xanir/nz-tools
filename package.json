@@ -5,12 +5,11 @@
 	"homepage": "https://github.com/EnzeyNet/nz-tools",
 	"bugs": "https://github.com/EnzeyNet/nz-tools/issues",
 	"author": {
-		"name": "Joseph Aspelund",
+		"name": "Enzey",
 		"email": "enzey@enzey.net",
 		"url": "https://github.com/Xanir"
 	},
 	"scripts": {
-		"build": "webpack"
 	},
 	"repository": {
 		"type": "git",

@@ -1,2 +1,4 @@
 
-module.exports = require('./CharTree');
+import CharTree from './CharTree'
+
+export default CharTree

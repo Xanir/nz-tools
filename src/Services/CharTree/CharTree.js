@@ -1,5 +1,5 @@
 
-const CharTreeNode = require('./CharTreeNode');
+import CharTreeNode from './CharTreeNode'
 
 var CharacterTree = function() {
       var tree = this;
@@ -121,4 +121,4 @@ CharacterTree.prototype.getActionNodes = function(str, action) {
     return actionNodes.sort(sortLongestStringsFirst);
 };
 
-module.exports = CharacterTree;
+export default CharacterTree

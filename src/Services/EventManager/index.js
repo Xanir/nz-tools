@@ -1,4 +1,4 @@
 
-import * as CLASS from './EventManager.js'
+import EventManager from './EventManager'
 
-export default CLASS;
+export default EventManager
