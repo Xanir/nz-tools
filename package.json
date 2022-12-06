@@ -10,11 +10,25 @@
 		"url": "https://github.com/Xanir"
 	},
 	"scripts": {
+		"build": "rollup --config _rollup.config.mjs",
+		"test": "mocha  --timeout 5000 'src_test/**/*.mjs'"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/EnzeyNet/nz-tools.git"
 	},
 	"devDependencies": {
+		"chai": "^4.3.7",
+		"jasmine-core": "2.2.x",
+		"karma-chrome-launcher": "0.1.x",
+		"karma-coverage": "0.2.x",
+		"karma-jasmine": "0.3.x",
+		"karma-junit-reporter": "0.2.x",
+		"karma-ng-html2js-preprocessor": "0.1.x",
+		"mocha": "^10.1.0",
+		"rollup": "^3.2.5"
+	},
+	"dependencies": {
+		"express": "4.18.x"
 	}
 }
